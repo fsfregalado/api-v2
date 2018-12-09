@@ -7,11 +7,23 @@ use App\Http\Requests\UserUpdateRequest;
 use App\User;
 use App\UserType;
 use Illuminate\Http\Request;
+
+//use Illuminate\Support\Facades\Auth;
+use Auth;
 use Illuminate\Support\Facades\Input;
 use Validator;
 
 class UserController extends Controller
 {
+
+    public function __contruct(){
+        $this->middleware('auth:api');
+    }
+
+    public function getAuthUser(){
+        return Auth::user();
+    }
+
     /**
      * @OA\Get(
      *      path="/user",

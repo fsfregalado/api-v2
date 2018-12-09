@@ -25,3 +25,5 @@ Route::resource('/usertype', 'UserTypeController');
 
 //give the articles and its users
 Route::get('/userarticle', 'ArticleController@getArticleAndUser');
+
+Route::get('/authuser', 'UserController@getAuthUser')->middleware('auth:api');

@@ -6,12 +6,10 @@ use App\Http\Requests\ArticleStoreRequest;
 use App\Http\Requests\ArticleUpdateRequest;
 use App\User;
 use App\Article;
-use App\Http\Requests;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
-use Faker\Generator as Faker;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
+
 
 class ArticleController extends Controller
 {
@@ -34,10 +32,10 @@ class ArticleController extends Controller
      *
      * Returns all articles
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        return Article::all();
+        return Article::where('title', 'LIKE', '%' . $request->search . '%')->get();
     }
 
     /**
