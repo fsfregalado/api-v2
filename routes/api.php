@@ -17,13 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/article', 'ArticleController');
+Route::resource('/article', 'ArticleController')->middleware('cors');
 
-Route::resource('/user', 'UserController');
+Route::resource('/user', 'UserController')->middleware('cors');
 
-Route::resource('/usertype', 'UserTypeController');
+Route::resource('/usertype', 'UserTypeController')->middleware('cors');
 
 //give the articles and its users
-Route::get('/userarticle', 'ArticleController@getArticleAndUser');
+Route::get('/userarticle', 'ArticleController@getArticleAndUser')->middleware('cors');
 
-Route::get('/authuser', 'UserController@getAuthUser')->middleware('auth:api');
+Route::get('/authuser', 'UserController@getAuthUser')->middleware('cors')->middleware('auth:api');
