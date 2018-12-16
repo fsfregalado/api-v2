@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
+use Faker\Generator as Faker;
 
 
 
@@ -99,7 +100,7 @@ class ArticleController extends Controller
      *
      * Creates a new article
      */
-    public function store(ArticleStoreRequest $request)
+    public function store(ArticleStoreRequest $request, Faker $faker)
     {
         //
         $data = $request->only(['title', 'description']);
@@ -126,7 +127,7 @@ class ArticleController extends Controller
 
         //guardar a imagem e o seu path
         //$path = $request->file('image')->store('Article_Images');
-        //$data['image'] = $path;
+        $data['image'] = $faker->imageUrl;
 
         $article =Article::create($data);
 
