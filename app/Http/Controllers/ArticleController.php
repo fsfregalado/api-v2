@@ -7,12 +7,19 @@ use App\Http\Requests\ArticleUpdateRequest;
 use App\User;
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
 
+
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index','show']]);
+    }
+
     /**
      * @OA\Get(
      *      path="/article",
@@ -95,8 +102,7 @@ class ArticleController extends Controller
     public function store(ArticleStoreRequest $request)
     {
         //
-        
-        $data = $request->only(['title', 'description','image']);
+        $data = $request->only(['title', 'description']);
 
         //handling feito em ArticleStoreRequest
         /*$validator = Validator::make($data, [
@@ -116,12 +122,11 @@ class ArticleController extends Controller
         }*/
 
         //random user - pois não se sabe os ids dos users, logo quando se tiver uma interface gráfica isto deixa de fazer sentido
-        $users = User::pluck('id')->toArray();
-        $data['user_id'] = array_rand($users);
+        $data['user_id'] = Auth::user()->id;
 
         //guardar a imagem e o seu path
-        $path = $request->file('image')->store('Article_Images');
-        $data['image'] = $path;
+        //$path = $request->file('image')->store('Article_Images');
+        //$data['image'] = $path;
 
         $article =Article::create($data);
 

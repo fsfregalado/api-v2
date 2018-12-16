@@ -28,7 +28,7 @@ class ArticleStoreRequest extends FormRequest
         return [
             'title' => 'required|unique:articles',
             'description' => 'required',
-            'image' => 'required|image'
+            'image' => 'image'
         ];
     }
 

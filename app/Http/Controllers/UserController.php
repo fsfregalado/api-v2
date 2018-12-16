@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\User\UserResource;
 use App\User;
 use App\UserType;
 use Illuminate\Http\Request;
@@ -155,7 +156,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
-        return $user;
+        return new UserResource($user);
     }
 
     /**
